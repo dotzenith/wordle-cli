@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "wordlecli"
+version = "0.1.1"
+description = "wordle, but in the command line"
+authors = ["ZenithDS"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.scripts]
+wordle = "wordlecli.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+rich = "^11.2.0"
+DateTime = "^4.4"
+typer = "^0.4.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
