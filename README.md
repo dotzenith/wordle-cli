@@ -22,7 +22,7 @@
 
   wordle-cli is, as the name suggests, wordle in the command-line. There are no fancy gui/tui elements, just a simple an minimalistic way to play wordle :)
 
-  <img src="assets/wordle.png" alt="wordle preview">
+  <img src="assets/wordle.gif" alt="wordle preview">
 
 ---
 
