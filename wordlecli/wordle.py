@@ -135,16 +135,16 @@ def generate_share(guess, target):
                     text += "\U0001F7E8"
                     target_freq[guess[i]] -= 1
                 else:
-                    text += "[black]\u2B1B[/black]"
+                    text += "\U0001F7EB"
 
             else:
-                text += "[black]\u2B1B[/black]"
+                text += "\U0001F7EB"
     
     return text
 
 def copy_share(num, share_list):
     
-    clean_list = [shr.replace('[black]', '').replace('[/black]', '') for shr in share_list]
+    clean_list = [shr.replace('\U0001F7EB', '\u2B1B') for shr in share_list]
 
     share_str = f"Wordle {num} {len(clean_list)}/6\n\n"
 

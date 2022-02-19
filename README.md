@@ -58,7 +58,7 @@ $ wordle 240
 ---
 
 ### ❖ What's New? 
-0.1.1 - changed the logic to be case insensitive
+0.1.3 - using brown squares for the cli output but black squares for the copy
 
 ---
 
