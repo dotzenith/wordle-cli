@@ -74,32 +74,34 @@ def compare_words(guess, target):
     :param target - word to compare to
     '''
 
-    text = ""
+    text = ["", "", "", "", ""]
     guess = guess.lower()
     target_freq = generate_frequency(target)
 
     if guess == target:
-        text =  f"[green]{guess.upper()}[/green]"
+        text = [f"[green]{word.upper()}[/green]" for word in guess]
     else:
+
         for i in range(len(guess)):
             
             if guess[i] == target[i]:
                 
-                text += f"[green]{guess[i].upper()}[/green]"
+                text[i] = f"[green]{guess[i].upper()}[/green]"
                 target_freq[guess[i]] -= 1
-            
-            elif (guess[i] != target[i]) and (guess[i] in target):
+       
+        for i in range(len(guess)):
+            if (guess[i] != target[i]) and (guess[i] in target):
                 
                 if target_freq[guess[i]] > 0:
-                    text += f"[yellow]{guess[i].upper()}[/yellow]"
+                    text[i] = f"[yellow]{guess[i].upper()}[/yellow]"
                     target_freq[guess[i]] -= 1
                 else:
-                    text += f"[bright_black]{guess[i].upper()}[/bright_black]"
+                    text[i] = f"[bright_black]{guess[i].upper()}[/bright_black]"
 
-            else:
-                text += f"[bright_black]{guess[i].upper()}[/bright_black]"
+            elif guess[i] not in target:
+                text[i] = f"[bright_black]{guess[i].upper()}[/bright_black]"
     
-    return text
+    return ''.join(text)
 
 def generate_share(guess, target):
     
@@ -115,32 +117,32 @@ def generate_share(guess, target):
     NOTE: this is very similar to compare_words and I know that I could just combine the two
     '''
     
-    text = ""
+    text = ["", "", "", "", ""]
     guess = guess.lower()
     target_freq = generate_frequency(target)
 
     if guess == target:
-        text =  "\U0001F7E9\U0001F7E9\U0001F7E9\U0001F7E9\U0001F7E9"
+        text =  ["\U0001F7E9", "\U0001F7E9", "\U0001F7E9", "\U0001F7E9", "\U0001F7E9"]
     else:
         for i in range(len(guess)):
             
             if guess[i] == target[i]:
-                
-                text += "\U0001F7E9"
+                text[i] = "\U0001F7E9"
                 target_freq[guess[i]] -= 1
-            
-            elif (guess[i] != target[i]) and (guess[i] in target):
+
+        for i in range(len(guess)):
+            if (guess[i] != target[i]) and (guess[i] in target):
                 
                 if target_freq[guess[i]] > 0:
-                    text += "\U0001F7E8"
+                    text[i] = "\U0001F7E8"
                     target_freq[guess[i]] -= 1
                 else:
-                    text += "\U0001F7EB"
+                    text[i] = "\U0001F7EB"
 
-            else:
-                text += "\U0001F7EB"
+            elif guess[i] not in target:
+                text[i] = "\U0001F7EB"
     
-    return text
+    return ''.join(text)
 
 def copy_share(num, share_list):
     
