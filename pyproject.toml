@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wordlecli"
-version = "0.1.1"
+version = "0.1.2"
 description = "wordle, but in the command line"
 authors = ["ZenithDS"]
 license = "MIT"
@@ -14,6 +14,7 @@ python = "^3.9"
 rich = "^11.2.0"
 DateTime = "^4.4"
 typer = "^0.4.0"
+pyperclip = "^1.8.2"
 
 [tool.poetry.dev-dependencies]
 

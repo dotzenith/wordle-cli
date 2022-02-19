@@ -1,7 +1,7 @@
 from datetime import date
 from wordlecli.words import target_words, valid_words
 from rich.console import Console
-
+import pyperclip
 # Instantiating this since it'll probably be needed by multiple functions
 console = Console()
 
@@ -120,27 +120,38 @@ def generate_share(guess, target):
     target_freq = generate_frequency(target)
 
     if guess == target:
-        text =  f":green_square::green_square::green_square::green_square::green_square:"
+        text =  "\U0001F7E9\U0001F7E9\U0001F7E9\U0001F7E9\U0001F7E9"
     else:
         for i in range(len(guess)):
             
             if guess[i] == target[i]:
                 
-                text += f":green_square:"
+                text += "\U0001F7E9"
                 target_freq[guess[i]] -= 1
             
             elif (guess[i] != target[i]) and (guess[i] in target):
                 
                 if target_freq[guess[i]] > 0:
-                    text += f":yellow_square:"
+                    text += "\U0001F7E8"
                     target_freq[guess[i]] -= 1
                 else:
-                    text += f":brown_square:"
+                    text += "[black]\u2B1B[/black]"
 
             else:
-                text += f":brown_square:"
+                text += "[black]\u2B1B[/black]"
     
     return text
+
+def copy_share(num, share_list):
+    
+    clean_list = [shr.replace('[black]', '').replace('[/black]', '') for shr in share_list]
+
+    share_str = f"Wordle {num} {len(clean_list)}/6\n\n"
+
+    for shareable in clean_list:
+        share_str += f"{shareable}\n"
+    
+    pyperclip.copy(share_str.removesuffix('\n'))
 
 def print_result(num, guesses, share_list, win_status):
 
@@ -160,14 +171,14 @@ def print_result(num, guesses, share_list, win_status):
         console.print(f"[green]Congratulations!![/green]", style="bold", justify="center")
         print()
 
-        print(f"Wordle {num} {len(guesses)}/6")
+        print(f"Wordle {num} {len(guesses)}/6\n")
         for shareable in share_list:
             console.print(shareable)
     else:
         console.print(f"[green]Good luck next time!![/green]", style="bold", justify="center")
         print()
 
-        print(f"Wordle {num} {len(guesses)}/6")
+        print(f"Wordle {num} {len(guesses)}/6\n")
         for shareable in share_list:
             console.print(shareable)
 
@@ -217,3 +228,4 @@ def main(target_num = get_wordle_num()):
             console.print(f"[red]Not a valid word![/red]", style="bold", justify="center")
 
     print_result(target_num, guess_list, wordle_share, win)
+    copy_share(target_num, wordle_share)
