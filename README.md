@@ -20,7 +20,7 @@
 
 ### ❖ Information 
 
-  wordle-cli is, as the name suggests, wordle in the command-line. There are no fancy gui/tui elements, just a simple an minimalistic way to play wordle :)
+  wordle-cli is, as the name suggests, wordle in the command-line. There are no fancy gui/tui elements, just a simple and minimalistic way to play wordle :)
 
   <img src="assets/wordle.gif" alt="wordle preview">
 
@@ -49,7 +49,7 @@ playing wordle in the command-line is as simple as running the following command
 $ wordle
 ```
 
-but if your addiction to wordle needs more, you can also play an older wordle by specifying the it's number
+but if your addiction to wordle needs more, you can also play an older wordle by specifying it's number
 
 ```sh
 $ wordle 240
