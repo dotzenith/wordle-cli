@@ -58,7 +58,7 @@ $ wordle 240
 ---
 
 ### ❖ What's New? 
-0.2.0 - Added an on-screen-keyboard by default - can be toggled via cli option 
+0.2.1 - Fixed an issue with keyboard display in hard mode 
 
 ---
 

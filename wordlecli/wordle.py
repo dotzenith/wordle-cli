@@ -336,8 +336,9 @@ def main(target_num = get_wordle_num(), easy=True):
         else:
             console.print(f"[red]Not a valid word![/red]", style="bold", justify="center")
             print()
-            print_keyboard(text_row1, text_row2, text_row3)
-            print()
+            if easy and not(win):
+                print_keyboard(text_row1, text_row2, text_row3)
+                print()
 
     print_result(target_num, guess_list, wordle_share, win)
     copy_share(target_num, wordle_share)
