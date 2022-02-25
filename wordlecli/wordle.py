@@ -2,8 +2,10 @@ from datetime import date
 from wordlecli.words import target_words, valid_words
 from rich.console import Console
 import pyperclip
+
 # Instantiating this since it'll probably be needed by multiple functions
 console = Console()
+
 
 def get_wordle_num():
 
@@ -103,6 +105,98 @@ def compare_words(guess, target):
     
     return ''.join(text)
 
+def update_keyboard(guess, target, row1, row2, row3):
+
+    '''
+    update_keyboard(guess, target) -> None
+
+    updates the keyboard dict for each row of the keyboard
+
+    :param guess - word guessed by the user
+    :param target - word to compare to        
+    :param row1 - keyboard row 1 (dict)
+    :param row2 - keyboard row 2 (dict)
+    :param row3 - keyboard row 3 (dict)
+    '''
+
+    word_row1 = "qwertyuiop"
+    word_row2 = "asdfghjkl"
+
+    guess = guess.lower()
+    target_freq = generate_frequency(target)
+
+    if guess == target:
+        
+        for word in guess:
+            if word in word_row1:
+                row1[word] = "green"
+            elif word in word_row2:
+                row2[word] = "green"
+            else:
+                row3[word] = "green"
+    else:
+
+        for i in range(len(guess)):
+            
+            if guess[i] == target[i]:
+                
+                if guess[i] in word_row1:
+                    row1[guess[i]] = "green"
+                elif guess[i] in word_row2:
+                    row2[guess[i]] = "green"
+                else:
+                    row3[guess[i]] = "green"
+            
+                target_freq[guess[i]] -= 1
+       
+        for i in range(len(guess)):
+            if (guess[i] != target[i]) and (guess[i] in target):
+                
+                if target_freq[guess[i]] > 0:
+                    if guess[i] in word_row1:
+                        row1[guess[i]] = "yellow"
+                    elif guess[i] in word_row2:
+                        row2[guess[i]] = "yellow"
+                    else:
+                        row3[guess[i]] = "yellow"
+
+                    target_freq[guess[i]] -= 1
+                else:
+                    if guess[i] in word_row1:
+                        row1[guess[i]] = "bright_black"
+                    elif guess[i] in word_row2:
+                        row2[guess[i]] = "bright_black"
+                    else:
+                        row3[guess[i]] = "bright_black"
+
+            elif guess[i] not in target:
+                if guess[i] in word_row1:
+                    row1[guess[i]] = "bright_black"
+                elif guess[i] in word_row2:
+                    row2[guess[i]] = "bright_black"
+                else:
+                    row3[guess[i]] = "bright_black"
+
+def print_keyboard(row1, row2, row3):
+
+    '''
+    update_keyboard(guess, target) -> None
+
+    prints out the keyboard in it's current state
+
+    :param row1 - keyboard row 1 (dict)
+    :param row2 - keyboard row 2 (dict)
+    :param row3 - keyboard row 3 (dict)
+    '''
+
+    text1 = [f"[{v}]{k.upper()}[/{v}]" for (k,v) in row1.items()]
+    text2 = [f"[{v}]{k.upper()}[/{v}]" for (k,v) in row2.items()]
+    text3 = [f"[{v}]{k.upper()}[/{v}]" for (k,v) in row3.items()]
+    
+    console.print(" ".join(text1), style="bold", justify="center")
+    console.print(" ".join(text2), style="bold", justify="center")
+    console.print(" ".join(text3), style="bold", justify="center")
+
 def generate_share(guess, target):
     
     '''
@@ -157,7 +251,6 @@ def copy_share(num, share_list):
 
 def print_result(num, guesses, share_list, win_status):
 
-
     '''
     print_result(num, guesses, share_list, win_status) -> None
 
@@ -184,7 +277,7 @@ def print_result(num, guesses, share_list, win_status):
         for shareable in share_list:
             console.print(shareable)
 
-def main(target_num = get_wordle_num()):
+def main(target_num = get_wordle_num(), easy=True):
     
     '''
     main(target_num) -> None
@@ -200,21 +293,32 @@ def main(target_num = get_wordle_num()):
 
     target_word = get_wordle(int(target_num))
    
+    # Making the keyboard dicts to be modified later
+    text_row1 = {"q":"white", "w":"white", "e":"white", "r":"white", "t":"white", "y":"white", "u":"white", "i":"white", "o":"white", "p":"white"}
+    text_row2 = {"a":"white", "s":"white", "d":"white", "f":"white", "g":"white", "h":"white", "j":"white", "k":"white", "l":"white"}
+    text_row3 = {"z":"white", "x":"white", "c":"white", "v":"white", "b":"white", "n":"white", "m":"white"}
+   
     console.print(f"[pink1]Welcome to wordle! You know how to play :)[/pink1]", style="bold", justify="center")   
     print()
 
     turn_count = 1
     win = False
+    first_try = True
     
     guess_list = []
     wordle_share = []
 
-    while turn_count <= 6 and not(win):    
+    while turn_count <= 6 and not(win):
+        if first_try and easy:
+            print_keyboard(text_row1, text_row2, text_row3)
+            first_try = False
+
         guess_word = console.input(f"[blue]Please enter a word:[/blue] ").lower()
 
         if check_valid_word(guess_word):
 
             guess_list.append(compare_words(guess_word, target_word))
+            update_keyboard(guess_word, target_word, text_row1, text_row2, text_row3)
             wordle_share.append(generate_share(guess_word, target_word))
 
             if guess_word == target_word:
@@ -224,10 +328,16 @@ def main(target_num = get_wordle_num()):
             for word in guess_list:
                 console.print(f"{word} [{guess_list.index(word) + 1}/6]", justify="center")
             print()
+            if easy and not(win):
+                print_keyboard(text_row1, text_row2, text_row3)
+                print()
 
             turn_count += 1
         else:
             console.print(f"[red]Not a valid word![/red]", style="bold", justify="center")
+            print()
+            print_keyboard(text_row1, text_row2, text_row3)
+            print()
 
     print_result(target_num, guess_list, wordle_share, win)
     copy_share(target_num, wordle_share)

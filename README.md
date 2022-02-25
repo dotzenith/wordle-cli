@@ -58,7 +58,7 @@ $ wordle 240
 ---
 
 ### ❖ What's New? 
-0.1.4 - fixed the logic for word comparison
+0.2.0 - Added an on-screen-keyboard by default - can be toggled via cli option 
 
 ---
 

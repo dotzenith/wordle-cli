@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wordlecli"
-version = "0.1.4"
+version = "0.2.0"
 description = "wordle, but in the command line"
 authors = ["ZenithDS"]
 license = "MIT"
