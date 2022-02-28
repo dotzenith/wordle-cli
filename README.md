@@ -38,7 +38,8 @@ $ pip3 install wordlecli
 ```sh
 $ git clone https://github.com/ZenithDS/wordle-cli.git
 $ cd wordle-cli
-$ poetry install
+$ poetry build
+$ pip3 install ./dist/wordlecli-0.2.1.tar.gz
 ```
 
 ### ❖ Usage 
