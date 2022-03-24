@@ -44,16 +44,22 @@ $ pip3 install ./dist/wordlecli-0.2.1.tar.gz
 
 ### ❖ Usage 
 
-playing wordle in the command-line is as simple as running the following command:
+Playing wordle in the command-line is as simple as running the following command:
 
 ```sh
 $ wordle
 ```
 
-but if your addiction to wordle needs more, you can also play an older wordle by specifying it's number
+But if your addiction to wordle needs more, you can also play an older wordle by specifying it's number
 
 ```sh
 $ wordle 240
+```
+
+The on-screen keyboard can be turned off using the `--hard` option
+
+```sh
+$ wordle --hard
 ```
 
 ---
