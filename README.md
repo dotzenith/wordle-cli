@@ -39,7 +39,7 @@ $ pip3 install wordlecli
 $ git clone https://github.com/ZenithDS/wordle-cli.git
 $ cd wordle-cli
 $ poetry build
-$ pip3 install ./dist/wordlecli-0.2.1.tar.gz
+$ pip3 install ./dist/wordlecli-0.2.2.tar.gz
 ```
 
 ### ❖ Usage 
@@ -65,7 +65,7 @@ $ wordle --hard
 ---
 
 ### ❖ What's New? 
-0.2.1 - Fixed an issue with keyboard display in hard mode 
+0.2.2 - Updated `words.py` to be consistent with the official wordle
 
 ---
 
