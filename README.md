@@ -10,7 +10,7 @@
 
    <img src="https://img.shields.io/github/repo-size/dotzenith/wordle-cli?color=ABE9B3&labelColor=302D41&style=for-the-badge">
    
-   <img src="https://badges.pufler.dev/visits/dotzenith/wordle-cli?style=for-the-badge&color=96CDFB&logoColor=white&labelColor=302D41"/>
+   <img src="https://img.shields.io/github/commit-activity/y/dotzenith/wordle-cli?color=96CDFB&labelColor=302D41&style=for-the-badge&label=COMMITS"/>
    <br>
 </div>
 
